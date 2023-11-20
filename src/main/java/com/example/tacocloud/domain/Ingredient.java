@@ -1,31 +1,22 @@
 package com.example.tacocloud.domain;
 
-import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import org.springframework.data.relational.core.mapping.Column;
+import org.springframework.data.cassandra.core.mapping.PrimaryKey;
+import org.springframework.data.cassandra.core.mapping.Table;
 
-import javax.persistence.Entity;
-import javax.persistence.Id;
 import java.util.Date;
 
 @Data
-@Entity
 @AllArgsConstructor
 @NoArgsConstructor(force = true)
+@Table("ingredients")
 public class Ingredient {
-
-    @Id
+    @PrimaryKey
     private final String id;
-
-    @Column("name")
     private final String name;
-
-    @Column("type")
     private Type type;
-
-    @Column("created_at")
     private Date createdAt = new Date();
 
     public Ingredient(String id, String name, Type type) {
