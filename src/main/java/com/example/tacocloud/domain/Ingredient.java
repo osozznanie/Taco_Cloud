@@ -1,31 +1,26 @@
 package com.example.tacocloud.domain;
 
+import org.springframework.data.annotation.Id;
+import org.springframework.data.mongodb.core.mapping.Document;
+
+import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import org.springframework.data.cassandra.core.mapping.PrimaryKey;
-import org.springframework.data.cassandra.core.mapping.Table;
-
-import java.util.Date;
 
 @Data
 @AllArgsConstructor
-@NoArgsConstructor(force = true)
-@Table("ingredients")
+@NoArgsConstructor(access=AccessLevel.PRIVATE, force=true)
+@Document(collection="ingredients")
 public class Ingredient {
-    @PrimaryKey
-    private final String id;
-    private final String name;
-    private Type type;
-    private Date createdAt = new Date();
 
-    public Ingredient(String id, String name, Type type) {
-        this.id = id;
-        this.name = name;
-        this.type = type;
-    }
+    @Id
+    private String id;
+    private String name;
+    private Type type;
 
     public enum Type {
         WRAP, PROTEIN, VEGGIES, CHEESE, SAUCE
     }
+
 }

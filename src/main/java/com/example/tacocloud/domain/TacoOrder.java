@@ -1,24 +1,26 @@
 package com.example.tacocloud.domain;
 
-import com.datastax.oss.driver.api.core.uuid.Uuids;
-import lombok.Data;
-import org.hibernate.validator.constraints.CreditCardNumber;
-import org.springframework.data.cassandra.core.mapping.Column;
-import org.springframework.data.cassandra.core.mapping.PrimaryKey;
-import org.springframework.data.cassandra.core.mapping.Table;
-
-import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.Size;
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
-import java.util.UUID;
+
+import javax.validation.constraints.Digits;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.Pattern;
+import javax.validation.constraints.Size;
+
+import org.hibernate.validator.constraints.CreditCardNumber;
+import org.springframework.data.annotation.Id;
+import org.springframework.data.mongodb.core.mapping.Document;
+
+import lombok.Data;
 
 @Data
-@Table("taco_orders")
-public class TacoOrder {
-    @PrimaryKey
-    private UUID id = Uuids.timeBased();
+@Document
+public class TacoOrder implements Serializable {
+    @Id
+    private String id;
 
     @NotBlank(message = "Delivery name is required")
     private String deliveryName;
@@ -43,13 +45,12 @@ public class TacoOrder {
     @Size(min = 3, max = 3, message = "CVV must be exactly 3 digits")
     private String ccCVV;
 
-    @Column("tacos")
-    private List<TacoUDT> tacos = new ArrayList<>();
+    private List<Taco> tacos = new ArrayList<>();
 
     private Date createdAt = new Date();
 
 
-    public void addTaco(TacoUDT taco) {
+    public void addTaco(Taco taco) {
         this.tacos.add(taco);
     }
 

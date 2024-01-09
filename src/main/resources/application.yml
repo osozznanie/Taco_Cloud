@@ -1,11 +1,13 @@
 spring:
   thymeleaf:
     cache: false
-    data:
-      mongodb:
-        host: mongodb.tacocloud.com
-        port: 27017
-        username: tacocloud
-        password: s3cr3tp455w0rd
-        database: tacoclouddb
-
+#    data:
+#      mongodb:
+#        host: mongodb.tacocloud.com
+#        port: 27017
+#        username: tacocloud
+#        password: s3cr3tp455w0rd
+#        database: tacoclouddb
+#    mongodb:
+#      embedded:
+#        version: 3.6.5
